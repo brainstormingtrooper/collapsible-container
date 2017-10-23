@@ -35,6 +35,12 @@ Polymer 1.X and 2.X accordion container
   <script>
     Polymer({
       is: "accordion-container",
+      properties:{
+        firstOpen:{
+          type: Boolean,
+          value: false
+        }
+      },
 
       _collapsibleToggled: function(evt, self) {
         var containers = self.getAllCollapsibles();
@@ -57,6 +63,10 @@ Polymer 1.X and 2.X accordion container
         if (!containers || containers.length === 0) {
           throw 'No collapsible-containers could be found inside ' + this + ' !';
         }
+
+        if (this.firstOpen && !this.getOpenCollapsible()) { 
+          containers[0].set('open', true); 
+        } 
 
         if (containers && containers.length) {
           for (var i = 0; i < containers.length; i++) {
